@@ -10,7 +10,6 @@ import xyz.acrylicstyle.simplecommands.commands.Suicide;
 import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
 public class SimpleCommands extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
