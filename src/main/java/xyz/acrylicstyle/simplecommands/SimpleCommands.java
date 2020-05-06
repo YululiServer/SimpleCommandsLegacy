@@ -11,6 +11,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class SimpleCommands extends JavaPlugin implements Listener {
+    private static SimpleCommands instance = null;
+
+    @Override
+    public void onLoad() {
+        instance = this;
+    }
+
     @Override
     public void onEnable() {
         List<String> disabledCommands = this.getConfig().getStringList("disabledCommands");
@@ -18,5 +25,9 @@ public class SimpleCommands extends JavaPlugin implements Listener {
         if (!disabledCommands.contains("pingall")) Objects.requireNonNull(Bukkit.getPluginCommand("pingall")).setExecutor(new PingAll());
         if (!disabledCommands.contains("suicide")) Objects.requireNonNull(Bukkit.getPluginCommand("suicide")).setExecutor(new Suicide());
         Bukkit.getPluginManager().registerEvents(this, this);
+    }
+
+    public static SimpleCommands getInstance() {
+        return instance;
     }
 }

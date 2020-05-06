@@ -3,8 +3,7 @@ main: xyz.acrylicstyle.simplecommands.SimpleCommands
 version: 1.0-SNAPSHOT
 commands:
   suicide:
-    description: "Kills yourself. Why would you do that?"
-    permission: simplecommands.suicide
+    description: ""
   ping:
     description: "Shows your ping"
   pingall:
