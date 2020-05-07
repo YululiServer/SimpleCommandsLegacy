@@ -9,3 +9,6 @@ commands:
   pingall:
     description: "Shows everyone's ping"
     permission: simplecommands.pingall
+  textures:
+    description: ""
+    aliases: ["texture2", "resourcepack", "resource", "/texture"]
