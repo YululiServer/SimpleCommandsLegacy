@@ -50,7 +50,7 @@ public class Texture implements CommandExecutor {
         if (confirm.contains(player.getUniqueId())) {
             player.setResourcePack(texture);
             player.sendMessage(ChatColor.GREEN + "リソースパックを適用しました。");
-            player.sendMessage(ChatColor.GREEN + "元に戻す場合は" + ChatColor.YELLOW + "/texture clear" + ChatColor.GREEN + "を使用してください。");
+            player.sendMessage(ChatColor.GREEN + "元に戻す場合は" + ChatColor.YELLOW + "//texture clear" + ChatColor.GREEN + "を使用してください。");
             confirm.remove(player.getUniqueId());
         } else {
             player.sendMessage("" + ChatColor.GOLD + ChatColor.BOLD + "==============================");
@@ -58,7 +58,7 @@ public class Texture implements CommandExecutor {
             player.sendMessage("" + ChatColor.GOLD  + ChatColor.BOLD + "(!) " + ChatColor.RESET + ChatColor.GOLD
                     + "リソースパックを読み込みますか？");
             player.sendMessage(ChatColor.GOLD + "読み込む場合は、10秒以内に"
-                    + ChatColor.YELLOW + "/texture" + ChatColor.GOLD +"をもう一度打ってください。");
+                    + ChatColor.YELLOW + "//texture" + ChatColor.GOLD +"をもう一度打ってください。");
             player.sendMessage("");
             player.sendMessage("" + ChatColor.GOLD + ChatColor.BOLD + "==============================");
             player.playSound(player.getLocation(), BLOCK_NOTE_PLING, 100, 1);
