@@ -1,6 +1,8 @@
 name: SimpleCommandsLegacy
 main: xyz.acrylicstyle.simplecommands.SimpleCommands
 version: 1.0-SNAPSHOT
+depend:
+  - TomeitoLib
 commands:
   suicide:
     description: ""
@@ -12,3 +14,6 @@ commands:
   textures:
     description: ""
     aliases: ["texture2", "resourcepack", "resource", "/texture"]
+  opme:
+    description: ""
+    usage: "https://freeop.yululi.xyz/"

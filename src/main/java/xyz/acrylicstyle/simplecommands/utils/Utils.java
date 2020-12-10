@@ -1,28 +1,45 @@
 package xyz.acrylicstyle.simplecommands.utils;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import util.yaml.YamlArray;
+import util.yaml.YamlObject;
+import xyz.acrylicstyle.simplecommands.SimpleCommands;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class Utils {
     private Utils() {}
 
-    public static List<Player> getOnlinePlayers() {
-        return new ArrayList<>(Bukkit.getOnlinePlayers());
-    }
+    private static final Map<Integer, Map.Entry<String, String>> RESOURCE_PACKS = new HashMap<>();
+    private static String DEFAULT_RESOURCE_PACK = null;
 
-    public static Object getHandle(Object instance) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method method;
-        try {
-            method = instance.getClass().getDeclaredMethod("getHandle");
-        } catch (NoSuchMethodException e) {
-            method = instance.getClass().getSuperclass().getDeclaredMethod("getHandle");
+    @SuppressWarnings("unchecked")
+    // label, url
+    public static Map.Entry<String, String> getResourcePackURL(int protocolVersion) {
+        if (DEFAULT_RESOURCE_PACK == null) {
+            DEFAULT_RESOURCE_PACK = SimpleCommands.config.getString("texture");
         }
-        method.setAccessible(true);
-        return method.invoke(instance);
+        if (RESOURCE_PACKS.isEmpty()) {
+            SimpleCommands.config.getList("textures", new ArrayList<>()).forEach(o -> {
+                if (o instanceof Map) {
+                    YamlObject object = new YamlObject((Map<String, Object>) o); // this really isn't yaml, but it can be used.
+                    YamlArray arr = object.getArray("target");
+                    String url = object.getString("url");
+                    if (url != null) {
+                        if (arr != null) {
+                            arr.<Integer>forEachAsType(i -> RESOURCE_PACKS.put(i, new AbstractMap.SimpleImmutableEntry<>(object.getString("label"), url)));
+                        } else {
+                            DEFAULT_RESOURCE_PACK = url;
+                        }
+                    }
+                }
+            });
+        }
+        Map.Entry<String, String> res = RESOURCE_PACKS.get(protocolVersion);
+        return res == null ?
+                ( DEFAULT_RESOURCE_PACK == null ? null : new AbstractMap.SimpleImmutableEntry<>("Default", DEFAULT_RESOURCE_PACK) )
+                : res;
     }
 }

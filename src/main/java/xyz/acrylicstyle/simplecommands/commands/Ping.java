@@ -14,17 +14,13 @@ public class Ping implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "This command cannot be invoked from console.");
             return true;
         }
-        try {
-            if (args.length == 1) {
-                Player player = Bukkit.getPlayer(args[0]);
-                sender.sendMessage(ChatColor.GREEN + "Ping: " + PingAll.getPing(player) + "ms");
-            } else {
-                Player player = (Player) sender;
-                player.sendMessage(ChatColor.GREEN + "Ping: " + PingAll.getPing(player) + "ms");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Player player;
+        if (sender.isOp() && args.length == 1) {
+            player = Bukkit.getPlayerExact(args[0]);
+        } else {
+            player = (Player) sender;
         }
+        sender.sendMessage(ChatColor.GREEN + "Ping: " + PingAll.getPing(player) + "ms");
         return true;
     }
 }
