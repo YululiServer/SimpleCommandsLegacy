@@ -2,13 +2,11 @@ package xyz.acrylicstyle.simplecommands.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import util.ICollectionList;
 import xyz.acrylicstyle.simplecommands.SimpleCommands;
 import xyz.acrylicstyle.simplecommands.utils.Utils;
 import xyz.acrylicstyle.tomeito_api.TomeitoAPI;
@@ -19,18 +17,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Texture implements CommandExecutor {
-    public static Sound BLOCK_NOTE_PLING;
-
-    static {
-        if (ICollectionList.asList(Sound.values()).map(Enum::name).contains("BLOCK_NOTE_BLOCK_PLING")) {
-            BLOCK_NOTE_PLING = Sound.valueOf("BLOCK_NOTE_BLOCK_PLING");
-        } else if (ICollectionList.asList(Sound.values()).map(Enum::name).contains("BLOCK_NOTE_PLING")) {
-            BLOCK_NOTE_PLING = Sound.valueOf("BLOCK_NOTE_PLING");
-        } else {
-            BLOCK_NOTE_PLING = Sound.valueOf("NOTE_PLING");
-        }
-    }
-
     public static final List<UUID> confirm = new ArrayList<>();
 
     @Override
@@ -71,7 +57,7 @@ public class Texture implements CommandExecutor {
                             + ChatColor.YELLOW + "//texture" + ChatColor.GOLD + "をもう一度打ってください。");
                     player.sendMessage("");
                     player.sendMessage("" + ChatColor.GOLD + ChatColor.BOLD + "==============================");
-                    player.playSound(player.getLocation(), BLOCK_NOTE_PLING, 100, 1);
+                    player.playSound(player.getLocation(), xyz.acrylicstyle.tomeito_api.sounds.Sound.BLOCK_NOTE_PLING, 100, 1);
                     confirm.add(player.getUniqueId());
                     new BukkitRunnable() {
                         @Override
